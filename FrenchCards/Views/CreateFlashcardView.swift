@@ -21,9 +21,11 @@ struct CreateFlashcardView: View {
                 .font(.title)
                 .bold()
                 .padding(.vertical, 20)
+            
             TextField("French Word", text: $frenchWord)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .disableAutocorrection(true)
+
             
             TextField("English Translation", text: $englishTranslation)
                 .textFieldStyle(RoundedBorderTextFieldStyle())

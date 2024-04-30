@@ -10,33 +10,47 @@ import SwiftUI
 struct LearnView: View {
     @State private var currentIndex: Int = 0
     @State private var translationVisible: Bool = false
+    @State private var draggingOffset: CGFloat = 0
+    @State private var dragging: Bool = false
 
     @State private var flashcards: [Flashcard] = []
 
+    let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 16)
+    ]
+
     var body: some View {
         NavigationView {
-            ZStack {
-                ForEach(flashcards.indices, id: \.self) { index in
-                    FlashcardView(flashcard: flashcards[index], translationVisible: self.translationVisible && index == self.currentIndex)
-                        .offset(x: self.offset(for: index), y: 0)
-                        .gesture(
-                            DragGesture()
-                                .onEnded { value in
-                                    if value.translation.width < -100 && self.currentIndex < self.flashcards.count - 1 {
-                                        // Swiped left and not on the last card
-                                        withAnimation(.smooth(duration: 0.2)) {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(flashcards.indices, id: \.self) { index in
+                        FlashcardView(flashcard: flashcards[index], translationVisible: self.translationVisible && index == self.currentIndex)
+                            .frame(maxWidth: .infinity, maxHeight: 200)
+                            .gesture(
+                                DragGesture()
+                                    .onChanged { value in
+                                        self.dragging = true
+                                        self.draggingOffset = value.translation.width
+                                    }
+                                    .onEnded { value in
+                                        self.dragging = false
+                                        let threshold: CGFloat = 100
+                                        if value.predictedEndTranslation.width < -threshold && self.currentIndex < self.flashcards.count - 1 {
                                             self.moveToNextCard()
-                                        }
-                                    } else if value.translation.width > 100 && self.currentIndex > 0 {
-                                        // Swiped right and not on the first card
-                                        withAnimation(.smooth(duration: 0.2)) {
+                                        } else if value.predictedEndTranslation.width > threshold && self.currentIndex > 0 {
                                             self.moveToPreviousCard()
+                                        } else {
+                                            withAnimation(.easeInOut(duration: 0.2)) {
+                                                self.moveToNearestCard()
+                                            }
                                         }
                                     }
-                                }
-                        )
-                        .zIndex(Double(abs(flashcards.count/2 - index)))
+                            )
+                            .zIndex(Double(abs(flashcards.count/2 - index)))
+                    }
                 }
+                .padding()
             }
             .navigationTitle("Exercise")
             .onTapGesture {
@@ -49,7 +63,6 @@ struct LearnView: View {
                     }
                 }
             }
-            .padding(.bottom, 50)
         }
     }
 
@@ -71,19 +84,15 @@ struct LearnView: View {
         translationVisible.toggle()
     }
 
-    private func offset(for index: Int) -> CGFloat {
-        if flashcards.isEmpty || currentIndex >= flashcards.count {
-            return 0
-        }
-
-        let cardWidth: CGFloat = 300
-        let spacing: CGFloat = 20
-
-        let distance = index - currentIndex
-
-        return CGFloat(distance) * (cardWidth + spacing)
+    private func moveToNearestCard() {
+        let cardWidth: CGFloat = UIScreen.main.bounds.width / 2 - 24
+        let spacing: CGFloat = 16
+        let nearestIndex = Int((draggingOffset + CGFloat(currentIndex) * (cardWidth + spacing) + cardWidth / 2) / (cardWidth + spacing))
+        currentIndex = max(0, min(nearestIndex, flashcards.count - 1))
     }
 }
+
+
 
 struct FlashcardView: View {
     let flashcard: Flashcard
@@ -120,7 +129,7 @@ struct FlashcardView: View {
                     .padding(.horizontal, 16)
                     .scaleEffect(x: translationVisible ? -1 : 1, y: 1) // Flip the text horizontally
             }
-            .frame(width: 300, height: 200)
+            .frame(width: 180, height: 200)
             .background(translationVisible ? Color.white : Color.indigo) // Background color of the card
             .cornerRadius(20)
             .shadow(radius: 5)
