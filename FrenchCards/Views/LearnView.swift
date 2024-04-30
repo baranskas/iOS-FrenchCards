@@ -24,12 +24,12 @@ struct LearnView: View {
                                 .onEnded { value in
                                     if value.translation.width < -100 && self.currentIndex < self.flashcards.count - 1 {
                                         // Swiped left and not on the last card
-                                        withAnimation(.easeInOut(duration: 0.2)) {
+                                        withAnimation(.smooth(duration: 0.2)) {
                                             self.moveToNextCard()
                                         }
                                     } else if value.translation.width > 100 && self.currentIndex > 0 {
                                         // Swiped right and not on the first card
-                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                        withAnimation(.smooth(duration: 0.2)) {
                                             self.moveToPreviousCard()
                                         }
                                     }
@@ -96,35 +96,47 @@ struct FlashcardView: View {
     
     var body: some View {
         ZStack {
-            HStack {
-                if translationVisible {
-                    Text("🇺🇸")
-                        .font(.title)
-                        .padding(.leading, 8)
-                } else {
-                    Text("🇫🇷")
-                        .font(.title)
-                        .padding(.leading, 8)
+            ZStack {
+                HStack {
+                    if !translationVisible {
+                        Text("🇫🇷")
+                            .font(.title)
+                            .padding(.leading, 15)
+                    }
+                    Spacer()
+                    if translationVisible {
+                        Text("🇺🇸")
+                            .font(.title)
+                            .padding(.leading, 15)
+                            .scaleEffect(x: -1)
+                    }
                 }
-                Spacer()
+                .padding(.bottom, 150)
+                
+                Text(translationVisible ? flashcard.englishTranslation : flashcard.frenchWord)
+                    .font(.title)
+                    .foregroundColor(translationVisible ? .black : .white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.horizontal, 16)
+                    .scaleEffect(x: translationVisible ? -1 : 1, y: 1) // Flip the text horizontally
             }
-            .padding(.bottom, 150)
-            
-            Text(translationVisible ? flashcard.englishTranslation : flashcard.frenchWord)
-                .font(.title)
-                .foregroundColor(translationVisible ? .black : .white)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.horizontal, 16) // Add horizontal padding for better appearance
-        }
-        .frame(width: 300, height: 200)
-        .background(translationVisible ? Color.white : Color.indigo)
-        .cornerRadius(20)
-        .shadow(radius: 5)
-        .onTapGesture {
-            self.translationVisible.toggle()
+            .frame(width: 300, height: 200)
+            .background(translationVisible ? Color.white : Color.indigo) // Background color of the card
+            .cornerRadius(20)
+            .shadow(radius: 5)
+            .rotation3DEffect(
+                .degrees(translationVisible ? 180 : 0),
+                axis: (x: 0.0, y: 1.0, z: 0.0)
+            )
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.translationVisible.toggle()
+                }
+            }
         }
     }
 }
+
 
 struct LearnView_Previews: PreviewProvider {
     static var previews: some View {
