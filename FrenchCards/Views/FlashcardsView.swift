@@ -36,7 +36,7 @@ struct FlashcardsView: View {
                     CreateFlashcardView(flashcards: $flashcards)
                 }
                 .padding(.horizontal)
-                .navigationTitle("Flashcards")
+                .navigationTitle("Word Database")
             }
             .onAppear {
                 if let savedFlashcards = UserDefaults.standard.data(forKey: "flashcards") {

@@ -7,15 +7,22 @@ struct ContentView: View {
         TabView {
             LearnView()
                 .tabItem {
-                    Image(systemName: "house")
+                    Image(systemName: "lanyardcard")
                     Text("Exercise")
+                }
+            
+            DiscoverView()
+                .tabItem {
+                    Image(systemName: "globe")
+                    Text("Discover")
                 }
             
             FlashcardsView()
                 .tabItem {
-                    Image(systemName: "list.bullet")
-                    Text("French Words")
+                    Image(systemName: "list.triangle")
+                    Text("Words")
                 }
+
         }
     }
 }

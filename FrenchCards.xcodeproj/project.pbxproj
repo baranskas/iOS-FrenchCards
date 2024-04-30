@@ -15,6 +15,7 @@
 		EB30D18E2BE0F9190036FB7E /* CreateFlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30D18D2BE0F9190036FB7E /* CreateFlashcardView.swift */; };
 		EB30D1902BE0F93C0036FB7E /* LearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30D18F2BE0F93C0036FB7E /* LearnView.swift */; };
 		EB30D1932BE0FA700036FB7E /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30D1922BE0FA700036FB7E /* Flashcard.swift */; };
+		EB30D1972BE181AC0036FB7E /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30D1962BE181AB0036FB7E /* DiscoverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		EB30D18D2BE0F9190036FB7E /* CreateFlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlashcardView.swift; sourceTree = "<group>"; };
 		EB30D18F2BE0F93C0036FB7E /* LearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnView.swift; sourceTree = "<group>"; };
 		EB30D1922BE0FA700036FB7E /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
+		EB30D1962BE181AB0036FB7E /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				EB30D18B2BE0F9030036FB7E /* FlashcardsView.swift */,
 				EB30D18D2BE0F9190036FB7E /* CreateFlashcardView.swift */,
 				EB30D18F2BE0F93C0036FB7E /* LearnView.swift */,
+				EB30D1962BE181AB0036FB7E /* DiscoverView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				EB30D1902BE0F93C0036FB7E /* LearnView.swift in Sources */,
 				EB30D18C2BE0F9030036FB7E /* FlashcardsView.swift in Sources */,
 				EB30D1722BE0F4980036FB7E /* ContentView.swift in Sources */,
+				EB30D1972BE181AC0036FB7E /* DiscoverView.swift in Sources */,
 				EB30D1702BE0F4980036FB7E /* FrenchCardsApp.swift in Sources */,
 				EB30D18E2BE0F9190036FB7E /* CreateFlashcardView.swift in Sources */,
 			);
