@@ -1,24 +1,27 @@
-//
-//  ContentView.swift
-//  FrenchCards
-//
-//  Created by Martynas Baranskas on 30/04/2024.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var flashcards: [Flashcard] = []
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            LearnView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Exercise")
+                }
+            
+            FlashcardsView()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("French Words")
+                }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
