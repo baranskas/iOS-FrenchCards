@@ -32,60 +32,72 @@ struct FlashcardDiscoveryView: View {
                         .foregroundColor(.red)
                         .padding()
                 } else {
-                    ZStack {
-                        HStack {
-                            if !translationVisible {
-                                Text("🇫🇷")
-                                    .font(.title)
-                                    .padding(.leading, 15)
+                    HStack {
+                        Button(action: {
+                            self.currentIndex = (self.currentIndex + self.flashcards.count + 1) % self.flashcards.count
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .padding()
+                                .background(Color.yellow)
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }
+                        ZStack {
+                            HStack {
+                                if !translationVisible {
+                                    Text("🇫🇷")
+                                        .font(.title)
+                                        .padding(.leading, 15)
+                                }
+                                Spacer()
+                                if translationVisible {
+                                    Text("🇺🇸")
+                                        .font(.title)
+                                        .padding(.leading, 15)
+                                        .scaleEffect(x: -1)
+                                }
                             }
-                            Spacer()
-                            if translationVisible {
-                                Text("🇺🇸")
-                                    .font(.title)
-                                    .padding(.leading, 15)
-                                    .scaleEffect(x: -1)
+                            .padding(.bottom, 240)
+                            
+                            Text(translationVisible ? flashcards[currentIndex].englishTranslation : flashcards[currentIndex].frenchWord)
+                                .font(.system(size: 30))
+                                .foregroundColor(translationVisible ? .black : .white)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .padding(.horizontal, 16)
+                                .scaleEffect(x: translationVisible ? -1 : 1, y: 1)
+                        }
+                        .frame(width: 230, height: 300)
+                        .background(translationVisible ? Color.white : Color.indigo)
+                        .cornerRadius(20)
+                        .shadow(radius: 5)
+                        .rotation3DEffect(
+                            .degrees(translationVisible ? 180 : 0),
+                            axis: (x: 0.0, y: 1.0, z: 0.0)
+                        )
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                self.translationVisible.toggle()
                             }
                         }
-                        .padding(.bottom, 240)
-                        
-                        Text(translationVisible ? flashcards[currentIndex].englishTranslation : flashcards[currentIndex].frenchWord)
-                            .font(.system(size: 30))
-                            .foregroundColor(translationVisible ? .black : .white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .padding(.horizontal, 16)
-                            .scaleEffect(x: translationVisible ? -1 : 1, y: 1)
-                    }
-                    .frame(width: 250, height: 300)
-                    .background(translationVisible ? Color.white : Color.indigo)
-                    .cornerRadius(20)
-                    .shadow(radius: 5)
-                    .rotation3DEffect(
-                        .degrees(translationVisible ? 180 : 0),
-                        axis: (x: 0.0, y: 1.0, z: 0.0)
-                    )
-                    .onTapGesture {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            self.translationVisible.toggle()
+                        Button(action: {
+                            self.currentIndex = (self.currentIndex + 1) % self.flashcards.count
+                        }) {
+                            Image(systemName: "checkmark")
+                                .font(.title)
+                                .padding()
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
                         }
                     }
-                    
-                    Button("Next Card") {
-                        self.currentIndex = (self.currentIndex + 1) % self.flashcards.count
-                    }
-                    
-                    .padding()
-                    .background(.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
-                    .padding(.vertical, 50)
-
                 }
             }
             .navigationTitle("Discover Words")
         }
     }
 }
+
 
 #Preview {
     DiscoverView()

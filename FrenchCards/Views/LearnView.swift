@@ -10,6 +10,7 @@ import SwiftUI
 struct LearnView: View {
     @State private var translationVisible: Bool = false
     @State private var flashcards: [Flashcard] = []
+    @State private var isSheetPresented = false
 
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 10),
@@ -39,6 +40,18 @@ struct LearnView: View {
                         self.flashcards = decodedFlashcards
                     }
                 }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isSheetPresented.toggle()
+                    }) {
+                        Image(systemName: "gear")
+                    }
+                }
+            }
+            .sheet(isPresented: $isSheetPresented) {
+                SettingsView()
             }
         }
     }
