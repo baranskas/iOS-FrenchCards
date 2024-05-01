@@ -8,49 +8,26 @@
 import SwiftUI
 
 struct LearnView: View {
-    @State private var currentIndex: Int = 0
     @State private var translationVisible: Bool = false
-    @State private var draggingOffset: CGFloat = 0
-    @State private var dragging: Bool = false
-
     @State private var flashcards: [Flashcard] = []
 
     let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10)
     ]
 
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
+                LazyVGrid(columns: columns, spacing: 13) {
                     ForEach(flashcards.indices, id: \.self) { index in
-                        FlashcardView(flashcard: flashcards[index], translationVisible: self.translationVisible && index == self.currentIndex)
+                        FlashcardView(flashcard: flashcards[index], translationVisible: self.translationVisible)
                             .frame(maxWidth: .infinity, maxHeight: 200)
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { value in
-                                        self.dragging = true
-                                        self.draggingOffset = value.translation.width
-                                    }
-                                    .onEnded { value in
-                                        self.dragging = false
-                                        let threshold: CGFloat = 100
-                                        if value.predictedEndTranslation.width < -threshold && self.currentIndex < self.flashcards.count - 1 {
-                                            self.moveToNextCard()
-                                        } else if value.predictedEndTranslation.width > threshold && self.currentIndex > 0 {
-                                            self.moveToPreviousCard()
-                                        } else {
-                                            withAnimation(.easeInOut(duration: 0.2)) {
-                                                self.moveToNearestCard()
-                                            }
-                                        }
-                                    }
-                            )
                             .zIndex(Double(abs(flashcards.count/2 - index)))
                     }
                 }
-                .padding()
+                .padding(.horizontal, 8)
+                .padding(.vertical)
             }
             .navigationTitle("Exercise")
             .onTapGesture {
@@ -66,29 +43,8 @@ struct LearnView: View {
         }
     }
 
-    private func moveToNextCard() {
-        currentIndex = (currentIndex + 1) % flashcards.count
-        translationVisible = false
-    }
-
-    private func moveToPreviousCard() {
-        if currentIndex == 0 {
-            currentIndex = flashcards.count - 1
-        } else {
-            currentIndex = (currentIndex - 1) % flashcards.count
-        }
-        translationVisible = false
-    }
-
     private func toggleTranslation() {
         translationVisible.toggle()
-    }
-
-    private func moveToNearestCard() {
-        let cardWidth: CGFloat = UIScreen.main.bounds.width / 2 - 24
-        let spacing: CGFloat = 16
-        let nearestIndex = Int((draggingOffset + CGFloat(currentIndex) * (cardWidth + spacing) + cardWidth / 2) / (cardWidth + spacing))
-        currentIndex = max(0, min(nearestIndex, flashcards.count - 1))
     }
 }
 
