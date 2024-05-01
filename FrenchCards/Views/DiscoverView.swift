@@ -21,7 +21,7 @@ struct FlashcardDiscoveryView: View {
     @State private var translationVisible: Bool = false
     
     init(flashcards: [Flashcard]) {
-        self.flashcards = flashcards.shuffled() // Shuffle flashcards
+        self.flashcards = flashcards.shuffled()
     }
     
     var body: some View {
@@ -72,8 +72,8 @@ struct FlashcardDiscoveryView: View {
                     
                     Button("Next Card") {
                         self.currentIndex = (self.currentIndex + 1) % self.flashcards.count
-                        self.translationVisible = false
                     }
+                    
                     .padding()
                     .background(.green)
                     .foregroundColor(.white)
