@@ -18,6 +18,12 @@ struct ContentView: View {
                     Text("Discover")
                 }
             
+            MatchView()
+                .tabItem {
+                    Image(systemName: "menucard")
+                    Text("Match")
+                }
+            
             FlashcardsView()
                 .tabItem {
                     Image(systemName: "list.triangle")
