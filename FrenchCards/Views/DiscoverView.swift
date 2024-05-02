@@ -42,13 +42,12 @@ struct FlashcardDiscoveryView: View {
                 } else {
                     HStack {
                         Button(action: {
-                            saveFlashcard()
-                            self.currentIndex = (self.currentIndex + self.flashcards.count + 1) % self.flashcards.count
+                            self.currentIndex = (self.currentIndex + self.flashcards.count - 1) % self.flashcards.count
                         }) {
-                            Image(systemName: "plus")
+                            Image(systemName: "arrow.backward")
                                 .font(.title)
                                 .padding()
-                                .background(Color.yellow)
+                                .background(Color.indigo)
                                 .foregroundColor(.white)
                                 .clipShape(Circle())
                         }
@@ -92,23 +91,22 @@ struct FlashcardDiscoveryView: View {
                         Button(action: {
                             self.currentIndex = (self.currentIndex + 1) % self.flashcards.count
                         }) {
-                            Image(systemName: "checkmark")
+                            Image(systemName: "arrow.right")
                                 .font(.title)
                                 .padding()
-                                .background(Color.green)
+                                .background(Color.indigo)
                                 .foregroundColor(.white)
                                 .clipShape(Circle())
                         }
                     }
+                    Text("\(self.currentIndex + 1) / \(self.flashcards.count)")
+                        .font(.title3)
+                        .bold()
+                        .padding(.vertical)
                 }
             }
             .navigationTitle("Discover Words")
         }
-    }
-    
-    func saveFlashcard() {
-        let flashcardToSave = flashcards[currentIndex]
-        
     }
 }
 
