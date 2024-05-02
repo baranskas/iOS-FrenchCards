@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var flashcards: [Flashcard] = []
+    @AppStorage("isDarkMode") private var isDarkMode = UserDefaults.standard.bool(forKey: "isDarkMode")
     
     var body: some View {
         TabView {
@@ -22,8 +23,8 @@ struct ContentView: View {
                     Image(systemName: "list.triangle")
                     Text("Words")
                 }
-
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light) // Apply preferred color scheme
     }
 }
 
