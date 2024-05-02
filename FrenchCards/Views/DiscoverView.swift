@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct DiscoverView: View {
-    let flashcards: [Flashcard] = FlashcardLoader.loadFlashcards()
+    let flashcards: [Flashcard]
+    
+    init() {
+        if let savedFlashcardsData = UserDefaults.standard.data(forKey: FlashcardLoader.flashcardsKey),
+           let savedFlashcards = try? JSONDecoder().decode([Flashcard].self, from: savedFlashcardsData) {
+            self.flashcards = savedFlashcards
+        } else {
+            self.flashcards = FlashcardLoader.loadFlashcards()
+        }
+    }
     
     var body: some View {
         FlashcardDiscoveryView(flashcards: flashcards)
     }
 }
-
 struct FlashcardDiscoveryView: View {
     let flashcards: [Flashcard]
     @State private var currentIndex = 0
@@ -34,6 +42,7 @@ struct FlashcardDiscoveryView: View {
                 } else {
                     HStack {
                         Button(action: {
+                            saveFlashcard()
                             self.currentIndex = (self.currentIndex + self.flashcards.count + 1) % self.flashcards.count
                         }) {
                             Image(systemName: "plus")
@@ -95,6 +104,11 @@ struct FlashcardDiscoveryView: View {
             }
             .navigationTitle("Discover Words")
         }
+    }
+    
+    func saveFlashcard() {
+        let flashcardToSave = flashcards[currentIndex]
+        
     }
 }
 

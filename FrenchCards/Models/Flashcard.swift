@@ -17,11 +17,6 @@ class FlashcardLoader {
     static let flashcardsKey = "DiscoveryFlashcards"
     
     static func loadFlashcards() -> [Flashcard] {
-        if let savedFlashcardsData = UserDefaults.standard.data(forKey: flashcardsKey),
-           let savedFlashcards = try? JSONDecoder().decode([Flashcard].self, from: savedFlashcardsData) {
-            return savedFlashcards
-        }
-        
         guard let fileURL = Bundle.main.url(forResource: "translated_words", withExtension: "txt") else {
             fatalError("Could not find translated_words.txt in the bundle")
         }
