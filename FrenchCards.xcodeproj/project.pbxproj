@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EB0576A12BE2AF620036603D /* translated_words.txt in Resources */ = {isa = PBXBuildFile; fileRef = EB0576A02BE2AF620036603D /* translated_words.txt */; };
 		EB0576A32BE2BB0C0036603D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0576A22BE2BB0C0036603D /* SettingsView.swift */; };
-		EB1CC0612BE3BBF600BC2F85 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1CC0602BE3BBF600BC2F85 /* MatchView.swift */; };
 		EB30D1702BE0F4980036FB7E /* FrenchCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30D16F2BE0F4980036FB7E /* FrenchCardsApp.swift */; };
 		EB30D1722BE0F4980036FB7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30D1712BE0F4980036FB7E /* ContentView.swift */; };
 		EB30D1742BE0F49A0036FB7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB30D1732BE0F49A0036FB7E /* Assets.xcassets */; };
@@ -24,7 +23,6 @@
 /* Begin PBXFileReference section */
 		EB0576A02BE2AF620036603D /* translated_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = translated_words.txt; sourceTree = "<group>"; };
 		EB0576A22BE2BB0C0036603D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		EB1CC0602BE3BBF600BC2F85 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		EB30D16C2BE0F4980036FB7E /* FrenchCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrenchCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB30D16F2BE0F4980036FB7E /* FrenchCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrenchCardsApp.swift; sourceTree = "<group>"; };
 		EB30D1712BE0F4980036FB7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 				EB30D18F2BE0F93C0036FB7E /* LearnView.swift */,
 				EB30D1962BE181AB0036FB7E /* DiscoverView.swift */,
 				EB0576A22BE2BB0C0036603D /* SettingsView.swift */,
-				EB1CC0602BE3BBF600BC2F85 /* MatchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,7 +179,6 @@
 				EB0576A32BE2BB0C0036603D /* SettingsView.swift in Sources */,
 				EB30D1902BE0F93C0036FB7E /* LearnView.swift in Sources */,
 				EB30D18C2BE0F9030036FB7E /* FlashcardsView.swift in Sources */,
-				EB1CC0612BE3BBF600BC2F85 /* MatchView.swift in Sources */,
 				EB30D1722BE0F4980036FB7E /* ContentView.swift in Sources */,
 				EB30D1972BE181AC0036FB7E /* DiscoverView.swift in Sources */,
 				EB30D1702BE0F4980036FB7E /* FrenchCardsApp.swift in Sources */,
